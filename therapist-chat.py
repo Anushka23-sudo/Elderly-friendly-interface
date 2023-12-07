@@ -67,6 +67,13 @@ with open("data.pickle", "rb") as f:
 model = load_model("model.keras")
 
 # Define a route to handle chatbot requests
+@app.route("/chat", methods=["POST"])
+def chat_request():
+    user_input = request.form["user_input"]
+    bot_response = chat(user_input)
+
+    return {"bot_response": bot_response}
+
 @app.route("/", methods=["GET", "POST"])
 def chatbot():
     if request.method == "GET":
